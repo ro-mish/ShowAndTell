@@ -44,33 +44,48 @@ def load_image(img, transform=None):
 
 @st.cache_resource
 def load_model(path):
+    # new_model = timm.create_model('vit_base_patch16_224', pretrained=True, num_classes=7).to("cpu")
+    # # # Load the weights
+    
+    # # new_model.eval()  # Set the model to evaluation mode
+    
+    # #url = "https://drive.google.com/uc?export=download&id=1Ia58B9ynHYYIQByeB5lSoqZi6RumjA6T"
+    # url = "https://drive.google.com/uc?export=download&id=19TsWdOq6a2lRkLoBuaJGw_8zRhL7cGox"
+    
+    # # output = 'emotion_model.pkl'
+    # gdown.download(url, "emotion_weights.pth", quiet=False)
+    # new_model.load_state_dict(torch.load("emotion_weights.pth", map_location=torch.device('cpu')))
+    # # with open('emotion_model.pkl', 'rb') as f:
+    # #     new_model = pickle.load(f)
+    
+    # #file_url = 'https://drive.google.com/uc?export=download&id=YOUR_FILE_ID'  # Replace with your actual link
+
+    # # # Create an in-memory binary stream
+    # # buffer = io.BytesIO()
+
+    # # # Download file into the buffer
+    # # gdown.download(url, output=buffer, quiet=False)
+
+    # # # Reset buffer position to the beginning
+    # # buffer.seek(0)
+
+    # # # Load the pickled data from the buffer
+    # # new_model = pickle.load(buffer)
+    # new_model.eval()
+    
+    # 1. Create the model architecture
     new_model = timm.create_model('vit_base_patch16_224', pretrained=True, num_classes=7).to("cpu")
-    # # Load the weights
-    
-    # new_model.eval()  # Set the model to evaluation mode
-    
-    #url = "https://drive.google.com/uc?export=download&id=1Ia58B9ynHYYIQByeB5lSoqZi6RumjA6T"
+
+    # 2. Download the weights into an in-memory buffer
     url = "https://drive.google.com/uc?export=download&id=19TsWdOq6a2lRkLoBuaJGw_8zRhL7cGox"
-    
-    # output = 'emotion_model.pkl'
-    gdown.download(url, "emotion_weights.pth", quiet=False)
-    new_model.load_state_dict(torch.load("emotion_weights.pth", map_location=torch.device('cpu')))
-    # with open('emotion_model.pkl', 'rb') as f:
-    #     new_model = pickle.load(f)
-    
-    #file_url = 'https://drive.google.com/uc?export=download&id=YOUR_FILE_ID'  # Replace with your actual link
+    buffer = io.BytesIO()
+    gdown.download(url, output=buffer, quiet=False)
 
-    # # Create an in-memory binary stream
-    # buffer = io.BytesIO()
+    # 3. Load the model weights from this buffer
+    buffer.seek(0)
+    new_model.load_state_dict(torch.load(buffer, map_location=torch.device('cpu')))
 
-    # # Download file into the buffer
-    # gdown.download(url, output=buffer, quiet=False)
-
-    # # Reset buffer position to the beginning
-    # buffer.seek(0)
-
-    # # Load the pickled data from the buffer
-    # new_model = pickle.load(buffer)
+    # 4. Set the model to evaluation mode
     new_model.eval()
     return new_model
 
