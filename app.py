@@ -1,18 +1,20 @@
-import streamlit as st
+import io
 import os
-import torch
-import timm
-from PIL import Image
-from torchvision import datasets, transforms
-from collections import Counter
-from PIL import Image, ImageDraw,  ImageEnhance
-import numpy as np
-from sklearn.cluster import KMeans
-import plotly.express as px
-import pandas as pd
-import streamlit_lottie
 import pickle
-import gdown 
+from collections import Counter
+
+import gdown
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import streamlit as st
+import streamlit_lottie
+import timm
+import torch
+from PIL import Image, ImageDraw, ImageEnhance
+from sklearn.cluster import KMeans
+from torchvision import datasets, transforms
+
 
 def upload_image():
     """
@@ -47,12 +49,26 @@ def load_model(path):
     # new_model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
     # new_model.eval()  # Set the model to evaluation mode
     url = "https://drive.google.com/uc?export=download&id=1Ia58B9ynHYYIQByeB5lSoqZi6RumjA6T"
-    output = 'emotion_model.pkl'
-    gdown.download(url, output, quiet=False)
+    # output = 'emotion_model.pkl'
+    # gdown.download(url, output, quiet=False)
     
-    with open('emotion_model.pkl', 'rb') as f:
-        new_model = pickle.load(f)
-        
+    # with open('emotion_model.pkl', 'rb') as f:
+    #     new_model = pickle.load(f)
+    
+    #file_url = 'https://drive.google.com/uc?export=download&id=YOUR_FILE_ID'  # Replace with your actual link
+
+    # Create an in-memory binary stream
+    buffer = io.BytesIO()
+
+    # Download file into the buffer
+    gdown.download(url, output=buffer, quiet=False)
+
+    # Reset buffer position to the beginning
+    buffer.seek(0)
+
+    # Load the pickled data from the buffer
+    new_model = pickle.load(buffer)
+    
     return new_model
 
 
@@ -146,13 +162,14 @@ id_2_label = {
 PATH='model.pkl'
 col1, col2 = st.columns(2)
 tab2, tab1 = st.tabs(["Model Results", "Top colors"])
+
 if __name__ == "__main__":
     
     model = load_model(PATH)
     st.title("Show and Tell")
     with st.sidebar:
         
-        st.header("Upload a face to predict how they feel.")
+        st.header("Upload a picture of a face to predict the person's emotion!")
         image = upload_image()
         #st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json")
         #st.lottie("https://lottie.host/a33a008b-43d1-478b-ae0f-5e81a9fef8ff/7QxIUNpemB.json")
@@ -164,12 +181,7 @@ if __name__ == "__main__":
             transforms.ToTensor(),
             transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
-        
-    
-    
-        
-    
-    
+
     st.subheader("Predicted emotion")
     
     if image:
