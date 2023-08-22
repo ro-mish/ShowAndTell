@@ -1,0 +1,10 @@
+dataset/
+emotion_dataset/
+labels.csv
+spectrogram.png
+notebooks/
+vit_weights2.pth
+utils.py
+model.pkl
+emotion_model.pkl
+~.DS_store

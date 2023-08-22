@@ -1,0 +1,11 @@
+streamlit
+torch
+timm
+Pillow
+torchvision
+numpy
+scikit-learn
+plotly
+pandas
+streamlit_lottie
+gdown
