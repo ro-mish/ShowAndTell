@@ -177,29 +177,32 @@ id_2_label = {
         6: 'Surprised'
     }
 
-PATH='model.pkl'
+
 col1, col2 = st.columns(2)
-tab2, tab1 = st.tabs(["Model Results", "Top colors"])
 
 if __name__ == "__main__":
     
-    model = load_model(PATH)
+    
     st.title("Show and Tell")
-    with st.sidebar:
+    
         
-        st.header("Upload a picture of a face to predict the person's emotion!")
-        image = upload_image()
-        #st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json")
-        #st.lottie("https://lottie.host/a33a008b-43d1-478b-ae0f-5e81a9fef8ff/7QxIUNpemB.json")
-        #st.lottie("https://lottie.host/643212bb-8df7-4d3e-8e87-54d156fbde5e/ND0hDloRtz.json")
-        
-        # Define the same transformation as during training
-        transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-        ])
-
+    st.header("Upload a picture of a face to predict the person's emotion")
+    image = upload_image()
+    #st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json")
+    #st.lottie("https://lottie.host/a33a008b-43d1-478b-ae0f-5e81a9fef8ff/7QxIUNpemB.json")
+    #st.lottie("https://lottie.host/643212bb-8df7-4d3e-8e87-54d156fbde5e/ND0hDloRtz.json")
+    
+    # Define the same transformation as during training
+    transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+    ])
+    
+    PATH='model.pkl'
+    
+    model = load_model(PATH)
+    
     st.subheader("Predicted emotion")
     
     if image:
@@ -212,16 +215,8 @@ if __name__ == "__main__":
         
         st.subheader(f"Predicted emotion from image: {id_2_label[torch.argmax(outputs).item()]}")
         
-
-        with tab1:
-            st.write("Top colors in the image:")
-            st.image(visualize_colors(tc))
-              
-        with tab2:
-            fig = px.bar(x=list(id_2_label.values()), y=outputs.detach().numpy().flatten(), labels={'x':'Emotion Category', 'y': 'Probability'})
-            st.plotly_chart(fig)
+        fig = px.bar(x=list(id_2_label.values()), y=outputs.detach().numpy().flatten(), labels={'x':'Emotion Category', 'y': 'Probability'})
+        st.plotly_chart(fig)
         
-        
-            
-
-    
+        st.write("Top colors in the image:")
+        st.image(visualize_colors(tc))
