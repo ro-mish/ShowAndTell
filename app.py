@@ -15,7 +15,7 @@ from PIL import Image, ImageDraw, ImageEnhance
 from sklearn.cluster import KMeans
 from torchvision import datasets, transforms
 
-from utils import *
+from src.utils import *
 
 os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 
