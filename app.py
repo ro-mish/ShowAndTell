@@ -222,7 +222,7 @@ if __name__ == "__main__":
     
     st.header("Upload an image to get started")
     image = upload_image()
-    st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json", height=10, width=10)
+    st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json", height=.1, width=.1)
     #st.lottie("https://lottie.host/a33a008b-43d1-478b-ae0f-5e81a9fef8ff/7QxIUNpemB.json")
     #st.lottie("https://lottie.host/643212bb-8df7-4d3e-8e87-54d156fbde5e/ND0hDloRtz.json")
     
