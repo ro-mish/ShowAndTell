@@ -8,3 +8,5 @@ utils.py
 model.pkl
 emotion_model.pkl
 ~.DS_store
+.venv/
+src/__pycache__
