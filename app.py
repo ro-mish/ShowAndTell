@@ -256,7 +256,7 @@ if __name__ == "__main__":
 
         with st.expander("Show model details and colors", expanded=False):
             fig = px.bar(x=list(id_2_label.values()), y=outputs, labels={'x':'Emotion Category', 'y': 'Activation'})
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
             
             st.write("Top colors in the image:")
             st.image(visualize_colors(tc))     
