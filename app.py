@@ -190,7 +190,7 @@ def write_screenplay(emotion:str, colors:list, director:str="Christopher Nolan")
           {"role": "system", "content": f"You are a successful set-designer that has won multiple awards. You have been given a reference image, that reveals a character's emotion as: {emotion}\
             You are currently working on a new project."},
           {"role": "user", "content": f"Write a highly descriptive set design that will fit the style of {director}. \
-            You are given a reference image of the character, who has gender-neutral name. The character is visibly {emotion}.\
+            You are given a reference image of the character. You are not to assume the character's gender. The character is visibly {emotion}.\
             based on the following colors in RGB format: {str(colors)}. You are to write descriptive set design for the character's room, and reference colors by name only."},
       ]
     )
@@ -222,7 +222,7 @@ if __name__ == "__main__":
     
     st.header("Upload an image to get started")
     image = upload_image()
-    #st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json")
+    st.lottie("https://lottie.host/86a4be01-7274-4cdc-878c-1040815eb450/sowTE5AlrP.json")
     #st.lottie("https://lottie.host/a33a008b-43d1-478b-ae0f-5e81a9fef8ff/7QxIUNpemB.json")
     #st.lottie("https://lottie.host/643212bb-8df7-4d3e-8e87-54d156fbde5e/ND0hDloRtz.json")
     
