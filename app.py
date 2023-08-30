@@ -15,7 +15,7 @@ from PIL import Image, ImageDraw, ImageEnhance
 from sklearn.cluster import KMeans
 from torchvision import datasets, transforms
 
-from src.utils import *
+from utils import *
 
 os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
 
@@ -37,9 +37,6 @@ col1, col2 = st.columns([2,1], gap="large")
 im_check = False
     
 if __name__ == "__main__":
-    
-    
-    
 
     st.title("Show & Tell")
     
