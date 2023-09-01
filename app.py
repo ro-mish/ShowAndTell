@@ -191,7 +191,7 @@ def write_screenplay(emotion:str, colors:list, director:str="Christopher Nolan")
             You are currently working on a new project."},
           {"role": "user", "content": f"Write a highly descriptive set design that will fit the style of {director}. \
             You are given a reference image of the character. You are not to assume the character's gender. The character is visibly {emotion}.\
-            based on the following colors in RGB format: {str(colors)}. You are to write descriptive set design for the character's room, and reference colors by name only."},
+            based on the following colors in RGB format: {str(colors)}. You are to write a descriptive set design that is fitting to the given colors, and reference colors by name only."},
       ]
     )
     return output
